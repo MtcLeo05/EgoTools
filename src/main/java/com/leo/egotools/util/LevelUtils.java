@@ -1,5 +1,6 @@
 package com.leo.egotools.util;
 
+import com.leo.egotools.config.Config;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
@@ -16,9 +17,6 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class LevelUtils {
-
-    public static final int basicExp = 32;
-
     static final Supplier<Stream<Map.Entry<ResourceKey<Enchantment>, Enchantment>>> registryEnchant = () -> ForgeRegistries.ENCHANTMENTS.getEntries().stream();
 
     static final List<Enchantment> BLACKLIST = List.of(
@@ -49,8 +47,7 @@ public class LevelUtils {
         NbtParUtils.overrideIntValue(tag, "exp", 0);
         NbtParUtils.increaseIntValue(tag, "level", 1);
         int level = NbtParUtils.getIntValue(tag, "level");
-        NbtParUtils.increaseIntValue(tag, "slot", 1);
-        NbtParUtils.overrideIntValue(tag, "maxExp", basicExp * 2 * level);
+        NbtParUtils.overrideIntValue(tag, "maxExp", (int) (Config.getStartExp() * Config.getExpMultiplier() * level));
         addNewEnchant(stack, random);
     }
 

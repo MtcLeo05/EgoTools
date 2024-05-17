@@ -1,5 +1,6 @@
 package com.leo.egotools.client.hud;
 
+import com.leo.egotools.config.Config;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -21,7 +22,6 @@ public class LevelHUDOverlay {
         CompoundTag tag = handStack.getOrCreateTag();
 
         if(tag.contains("properties")){
-
             CompoundTag prop = tag.getCompound("properties");
 
             int level = prop.getInt("level");
@@ -41,13 +41,13 @@ public class LevelHUDOverlay {
 
             guiGraphics.drawCenteredString(forgeGui.getFont(), String.valueOf(level), startX - 8, startY - 4, 0xFFFFFF);
 
-            renderTwoColor(guiGraphics, startX, startY, startX + barWidth, startY + 2, 0xFFAAAAAA, 0xFF555555);
-            renderTwoColor(guiGraphics, startX, startY, startX + actualProgress, startY + 2, 0xFF00FFFF, 0xFF00AAAA);
+            renderTwoColor(guiGraphics, startX, startY, startX + barWidth, startY + 2, Config.getLightBackground(), Config.getDarkBackground());
+            renderTwoColor(guiGraphics, startX, startY, startX + actualProgress, startY + 2, Config.getLightFill(), Config.getDarkFill());
         }
     });
 
-    public static void renderTwoColor(GuiGraphics guiGraphics, int startX, int startY, int maxX, int maxY, int color1, int color2){
-        guiGraphics.fill(startX, startY, maxX, startY + 1, color1);
-        guiGraphics.fill(startX, maxY - 1, maxX, maxY, color2);
+    public static void renderTwoColor(GuiGraphics guiGraphics, int startX, int startY, int maxX, int maxY, int lightColor, int darkColor){
+        guiGraphics.fill(startX, startY, maxX, startY + 1, lightColor);
+        guiGraphics.fill(startX, maxY - 1, maxX, maxY, darkColor);
     }
 }
