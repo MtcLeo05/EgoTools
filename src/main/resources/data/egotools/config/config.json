@@ -1,0 +1,13 @@
+{
+  "colors": {
+    "lightBackground": "0xFFAAAAAA",
+    "darkBackground": "0xFF555555",
+    "lightFill": "0xFF00FFFF",
+    "darkFill": "0xFF00AAAA"
+  },
+  "startExp": 32,
+  "expMultiplier": 2,
+  "expPerBlock": 1,
+  "killExpMultiplier": 1,
+  "expPerTill": 1
+}
