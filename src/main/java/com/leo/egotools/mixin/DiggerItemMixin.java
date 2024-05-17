@@ -21,7 +21,7 @@ public abstract class DiggerItemMixin{
     public void addExp(ItemStack pStack, Level pLevel, BlockState pState, BlockPos pPos, LivingEntity pEntityLiving, CallbackInfoReturnable<Boolean> cir){
         if(!pLevel.isClientSide && isCorrectToolForDrops(pStack, pState)){
             if(NbtParUtils.hasToolProperties(pStack.getTag())){
-                LevelUtils.increaseExp(pStack, 1, pEntityLiving.level().random);
+                LevelUtils.increaseExp(pStack, 1, pEntityLiving.level.random);
             }
         }
     }

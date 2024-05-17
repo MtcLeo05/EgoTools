@@ -1,17 +1,19 @@
 package com.leo.egotools.client.hud;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 public class LevelHUDOverlay {
-    public static final IGuiOverlay HUD_LEVEL = ((forgeGui, guiGraphics, partialTick, width, height) -> {
+    public static final IGuiOverlay HUD_LEVEL = ((forgeGui, poseStack, partialTick, width, height) -> {
         Minecraft minecraft = Minecraft.getInstance();
         Player player = minecraft.player;
 
@@ -39,15 +41,15 @@ public class LevelHUDOverlay {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
-            guiGraphics.drawCenteredString(forgeGui.getFont(), String.valueOf(level), startX - 8, startY - 4, 0xFFFFFF);
+            GuiComponent.drawCenteredString(poseStack, forgeGui.getFont(), String.valueOf(level), startX - 8, startY - 4, 0xFFFFFF);
 
-            renderTwoColor(guiGraphics, startX, startY, startX + barWidth, startY + 2, 0xFFAAAAAA, 0xFF555555);
-            renderTwoColor(guiGraphics, startX, startY, startX + actualProgress, startY + 2, 0xFF00FFFF, 0xFF00AAAA);
+            renderTwoColor(poseStack, startX, startY, startX + barWidth, startY + 2, 0xFFAAAAAA, 0xFF555555);
+            renderTwoColor(poseStack, startX, startY, startX + actualProgress, startY + 2, 0xFF00FFFF, 0xFF00AAAA);
         }
     });
 
-    public static void renderTwoColor(GuiGraphics guiGraphics, int startX, int startY, int maxX, int maxY, int color1, int color2){
-        guiGraphics.fill(startX, startY, maxX, startY + 1, color1);
-        guiGraphics.fill(startX, maxY - 1, maxX, maxY, color2);
+    public static void renderTwoColor(PoseStack guiGraphics, int startX, int startY, int maxX, int maxY, int color1, int color2){
+        GuiComponent.fill(guiGraphics, startX, startY, maxX, startY + 1, color1);
+        GuiComponent.fill(guiGraphics, startX, maxY - 1, maxX, maxY, color2);
     }
 }

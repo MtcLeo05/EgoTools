@@ -23,17 +23,17 @@ public abstract class SwordItemMixin{
     public void addBlockExp(ItemStack pStack, Level pLevel, BlockState pState, BlockPos pPos, LivingEntity pEntityLiving, CallbackInfoReturnable<Boolean> cir){
         if(!pLevel.isClientSide && isCorrectToolForDrops(pState)){
             if(NbtParUtils.hasToolProperties(pStack.getTag())){
-                LevelUtils.increaseExp(pStack, 1, pEntityLiving.level().random);
+                LevelUtils.increaseExp(pStack, 1, pEntityLiving.level.random);
             }
         }
     }
 
     @Inject(method = "hurtEnemy", at = @At(value = "RETURN"))
     public void addHitExp(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker, CallbackInfoReturnable<Boolean> cir){
-        if(!pAttacker.level().isClientSide){
+        if(!pAttacker.level.isClientSide){
             if(pTarget.isDeadOrDying()){
                 if(NbtParUtils.hasToolProperties(pStack.getTag())){
-                    LevelUtils.increaseExp(pStack, (int) pTarget.getMaxHealth(), pAttacker.level().random);
+                    LevelUtils.increaseExp(pStack, (int) pTarget.getMaxHealth(), pAttacker.level.random);
                 }
             }
 

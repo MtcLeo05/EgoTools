@@ -1,11 +1,13 @@
 package com.leo.egotools.client.tooltip;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Matrix4f;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
-import org.joml.Matrix4f;
+import net.minecraft.client.renderer.entity.ItemRenderer;
 
 public class ClientLevelTooltipComponent implements ClientTooltipComponent {
 
@@ -26,36 +28,37 @@ public class ClientLevelTooltipComponent implements ClientTooltipComponent {
     }
 
     @Override
-    public void renderText(Font pFont, int pMouseX, int pMouseY, Matrix4f pMatrix, MultiBufferSource.BufferSource pBufferSource) {
+    public void renderText(Font pFont, int pX, int pY, Matrix4f pMatrix4f, MultiBufferSource.BufferSource pBufferSource) {
         String level = getBigNumber(component.getLevel());
         String exp = getBigNumber(component.getExp());
         String maxExp = getBigNumber(component.getMaxExp());
 
         String expValue = exp + "/" + maxExp;
 
-        pFont.drawInBatch(level, pMouseX + 54, pMouseY - 1, 0xFFFFFF, true, pMatrix, pBufferSource, Font.DisplayMode.NORMAL, 0, 0xF000F0);
-        pFont.drawInBatch(expValue, pMouseX, pMouseY + 8, 0xFFFFFF, true, pMatrix, pBufferSource, Font.DisplayMode.NORMAL, 0, 0xF000F0);
+        PoseStack pPoseStack = new PoseStack();
+
+        pFont.drawInBatch(level, pX + 54, pY - 1, 0xFFFFFF, true, pMatrix4f, pBufferSource, true, 0x000000, LightTexture.FULL_BRIGHT);
+        pFont.drawInBatch(expValue, pX, pY + 8, 0xFFFFFF, true, pMatrix4f, pBufferSource, true, 0x000000, LightTexture.FULL_BRIGHT);
     }
 
     @Override
-    public void renderImage(Font pFont, int pX, int pY, GuiGraphics gui) {
-        PoseStack ps = gui.pose();
+    public void renderImage(Font pFont, int pX, int pY, PoseStack pPoseStack, ItemRenderer pItemRenderer, int pBlitOffset) {
         int totalWidth = 50;
         float percentageFull = (float) component.getExp() / component.getMaxExp();
         int height = 3;
         int offsetFromBox = 4;
 
+
         pY += 8;
 
-        ps.pushPose();
+        pPoseStack.pushPose();
 
         int progress = (int) Math.ceil(totalWidth * percentageFull);
+        GuiComponent.fill(pPoseStack,pX - 1, pY - height - offsetFromBox - 1, pX + totalWidth + 1, pY - offsetFromBox, 0xFF000000);
+        GuiComponent.fill(pPoseStack,pX, pY - height - offsetFromBox, pX + progress, pY - offsetFromBox, 0xff00ffff);
+        GuiComponent.fill(pPoseStack,pX + progress, pY - height - offsetFromBox, pX + totalWidth, pY - offsetFromBox, 0xFF555555);
 
-        gui.fill(pX - 1, pY - height - offsetFromBox - 1, pX + totalWidth + 1, pY - offsetFromBox, 0xFF000000);
-        gui.fill(pX, pY - height - offsetFromBox, pX + progress, pY - offsetFromBox, 0xff00ffff);
-        gui.fill(pX + progress, pY - height - offsetFromBox, pX + totalWidth, pY - offsetFromBox, 0xFF555555);
-        
-        ps.popPose();
+        pPoseStack.popPose();
     }
 
     public static String getBigNumber(int number){
