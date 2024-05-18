@@ -1,6 +1,6 @@
 package com.leo.egotools.client.tooltip;
 
-import com.leo.egotools.config.Config;
+import com.leo.egotools.config.ClientConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Matrix4f;
 import net.minecraft.client.gui.Font;
@@ -56,8 +56,8 @@ public class ClientLevelTooltipComponent implements ClientTooltipComponent {
 
         int progress = (int) Math.ceil(totalWidth * percentageFull);
         GuiComponent.fill(pPoseStack,pX - 1, pY - height - offsetFromBox - 1, pX + totalWidth + 1, pY - offsetFromBox, 0xFF000000);
-        GuiComponent.fill(pPoseStack,pX, pY - height - offsetFromBox, pX + progress, pY - offsetFromBox, Config.getLightFill());
-        GuiComponent.fill(pPoseStack,pX + progress, pY - height - offsetFromBox, pX + totalWidth, pY - offsetFromBox, Config.getLightBackground());
+        GuiComponent.fill(pPoseStack,pX, pY - height - offsetFromBox, pX + progress, pY - offsetFromBox, ClientConfig.getLightFill());
+        GuiComponent.fill(pPoseStack,pX + progress, pY - height - offsetFromBox, pX + totalWidth, pY - offsetFromBox, ClientConfig.getLightBackground());
 
         pPoseStack.popPose();
     }

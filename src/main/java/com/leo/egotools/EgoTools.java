@@ -1,5 +1,7 @@
 package com.leo.egotools;
 
+import com.leo.egotools.config.ClientConfig;
+import com.leo.egotools.config.ServerConfig;
 import com.leo.egotools.network.ModMessages;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.common.MinecraftForge;
@@ -25,9 +27,26 @@ public class EgoTools {
         MinecraftForge.EVENT_BUS.register(this);
 
         modEventBus.addListener(this::commonSetup);
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerConfig.SERVER_SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.CLIENT_SPEC);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         ModMessages.register();
+    }
+
+    public static int stringToColor(String color){
+        if(color.startsWith("0x")){
+            color = color.substring(2);
+        }
+
+        if(color.startsWith("#")){
+            color = color.substring(1);
+        }
+
+        long longColor = Long.parseLong(color, 16);
+
+        return (int) longColor;
     }
 }

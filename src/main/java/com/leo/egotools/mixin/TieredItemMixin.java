@@ -1,7 +1,7 @@
 package com.leo.egotools.mixin;
 
 import com.leo.egotools.client.tooltip.LevelTooltipComponent;
-import com.leo.egotools.config.Config;
+import com.leo.egotools.config.ServerConfig;
 import com.leo.egotools.util.NbtParUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
@@ -58,7 +58,7 @@ public abstract class TieredItemMixin extends Item {
                 CompoundTag prop = new CompoundTag();
 
                 prop.putInt(EXP_TAG, 0);
-                prop.putInt(MAX_EXP_TAG, Config.getStartExp());
+                prop.putInt(MAX_EXP_TAG, ServerConfig.getStartExp());
                 prop.putInt(LEVEL_TAG, 0);
 
                 tag.put(PROPERTIES_TAG, prop);

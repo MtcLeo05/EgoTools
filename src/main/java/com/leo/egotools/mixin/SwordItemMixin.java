@@ -1,6 +1,6 @@
 package com.leo.egotools.mixin;
 
-import com.leo.egotools.config.Config;
+import com.leo.egotools.config.ServerConfig;
 import com.leo.egotools.util.LevelUtils;
 import com.leo.egotools.util.NbtParUtils;
 import net.minecraft.core.BlockPos;
@@ -23,7 +23,7 @@ public abstract class SwordItemMixin{
     public void addBlockExp(ItemStack pStack, Level pLevel, BlockState pState, BlockPos pPos, LivingEntity pEntityLiving, CallbackInfoReturnable<Boolean> cir){
         if(!pLevel.isClientSide && isCorrectToolForDrops(pState)){
             if(NbtParUtils.hasToolProperties(pStack.getTag())){
-                LevelUtils.increaseExp(pStack, Config.getExpPerBlock(), pEntityLiving.level.random);
+                LevelUtils.increaseExp(pStack, ServerConfig.getExpPerBlock(), pEntityLiving.level.random);
             }
         }
     }
@@ -33,7 +33,7 @@ public abstract class SwordItemMixin{
         if(!pAttacker.level.isClientSide){
             if(pTarget.isDeadOrDying()){
                 if(NbtParUtils.hasToolProperties(pStack.getTag())){
-                    LevelUtils.increaseExp(pStack, (int) (pTarget.getMaxHealth() * Config.getKillExpMultiplier()), pAttacker.level.random);
+                    LevelUtils.increaseExp(pStack, (int) (pTarget.getMaxHealth() * ServerConfig.getKillExpMultiplier()), pAttacker.level.random);
                 }
             }
 

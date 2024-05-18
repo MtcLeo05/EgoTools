@@ -1,6 +1,6 @@
 package com.leo.egotools.client.hud;
 
-import com.leo.egotools.config.Config;
+import com.leo.egotools.config.ClientConfig;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -10,7 +10,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 public class LevelHUDOverlay {
@@ -44,8 +43,8 @@ public class LevelHUDOverlay {
 
             GuiComponent.drawCenteredString(poseStack, forgeGui.getFont(), String.valueOf(level), startX - 8, startY - 4, 0xFFFFFF);
 
-            renderTwoColor(poseStack, startX, startY, startX + barWidth, startY + 2, Config.getLightBackground(), Config.getDarkBackground());
-            renderTwoColor(poseStack, startX, startY, startX + actualProgress, startY + 2, Config.getLightFill(), Config.getDarkFill());
+            renderTwoColor(poseStack, startX, startY, startX + barWidth, startY + 2, ClientConfig.getLightBackground(), ClientConfig.getDarkBackground());
+            renderTwoColor(poseStack, startX, startY, startX + actualProgress, startY + 2, ClientConfig.getLightFill(), ClientConfig.getDarkFill());
         }
     });
 
