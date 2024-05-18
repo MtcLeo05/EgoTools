@@ -1,6 +1,6 @@
 package com.leo.egotools.client.hud;
 
-import com.leo.egotools.config.Config;
+import com.leo.egotools.config.ClientConfig;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -41,8 +41,8 @@ public class LevelHUDOverlay {
 
             guiGraphics.drawCenteredString(forgeGui.getFont(), String.valueOf(level), startX - 8, startY - 4, 0xFFFFFF);
 
-            renderTwoColor(guiGraphics, startX, startY, startX + barWidth, startY + 2, Config.getLightBackground(), Config.getDarkBackground());
-            renderTwoColor(guiGraphics, startX, startY, startX + actualProgress, startY + 2, Config.getLightFill(), Config.getDarkFill());
+            renderTwoColor(guiGraphics, startX, startY, startX + barWidth, startY + 2, ClientConfig.getLightBackground(), ClientConfig.getDarkBackground());
+            renderTwoColor(guiGraphics, startX, startY, startX + actualProgress, startY + 2, ClientConfig.getLightFill(), ClientConfig.getDarkFill());
         }
     });
 

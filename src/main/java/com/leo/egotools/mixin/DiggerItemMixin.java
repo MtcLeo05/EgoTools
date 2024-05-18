@@ -1,6 +1,6 @@
 package com.leo.egotools.mixin;
 
-import com.leo.egotools.config.Config;
+import com.leo.egotools.config.ServerConfig;
 import com.leo.egotools.util.LevelUtils;
 import com.leo.egotools.util.NbtParUtils;
 import net.minecraft.core.BlockPos;
@@ -22,7 +22,7 @@ public abstract class DiggerItemMixin{
     public void addExp(ItemStack pStack, Level pLevel, BlockState pState, BlockPos pPos, LivingEntity pEntityLiving, CallbackInfoReturnable<Boolean> cir){
         if(!pLevel.isClientSide && isCorrectToolForDrops(pStack, pState)){
             if(NbtParUtils.hasToolProperties(pStack.getTag())){
-                LevelUtils.increaseExp(pStack, Config.getExpPerBlock(), pEntityLiving.level().random);
+                LevelUtils.increaseExp(pStack, ServerConfig.getExpPerBlock(), pEntityLiving.level().random);
             }
         }
     }

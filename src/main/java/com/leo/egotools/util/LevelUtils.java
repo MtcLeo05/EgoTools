@@ -1,6 +1,6 @@
 package com.leo.egotools.util;
 
-import com.leo.egotools.config.Config;
+import com.leo.egotools.config.ServerConfig;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
@@ -47,7 +47,7 @@ public class LevelUtils {
         NbtParUtils.overrideIntValue(tag, "exp", 0);
         NbtParUtils.increaseIntValue(tag, "level", 1);
         int level = NbtParUtils.getIntValue(tag, "level");
-        NbtParUtils.overrideIntValue(tag, "maxExp", (int) (Config.getStartExp() * Config.getExpMultiplier() * level));
+        NbtParUtils.overrideIntValue(tag, "maxExp", (int) (ServerConfig.getStartExp() * ServerConfig.getExpMultiplier() * (level + 1)));
         addNewEnchant(stack, random);
     }
 

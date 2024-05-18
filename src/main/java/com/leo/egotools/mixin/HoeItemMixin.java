@@ -1,6 +1,6 @@
 package com.leo.egotools.mixin;
 
-import com.leo.egotools.config.Config;
+import com.leo.egotools.config.ServerConfig;
 import com.leo.egotools.util.LevelUtils;
 import com.leo.egotools.util.NbtParUtils;
 import net.minecraft.world.InteractionResult;
@@ -19,7 +19,7 @@ public abstract class HoeItemMixin {
     public void addExp(UseOnContext pContext, CallbackInfoReturnable<InteractionResult> cir){
         ItemStack pStack = pContext.getItemInHand();
         if(NbtParUtils.hasToolProperties(pStack.getTag())){
-            LevelUtils.increaseExp(pStack, Config.getExpPerTill(), pContext.getLevel().random);
+            LevelUtils.increaseExp(pStack, ServerConfig.getExpPerTill(), pContext.getLevel().random);
         }
     }
 }
