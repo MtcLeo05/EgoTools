@@ -3,7 +3,7 @@
   "minVersion": "0.8",
   "package": "com.leo.egotools.mixin",
   "compatibilityLevel": "JAVA_8",
-  "refmap": "EgoTools.refmap.json",
+  "refmap": "egotools.refmap.json",
   "mixins": [
     "DiggerItemMixin",
     "HoeItemMixin",
