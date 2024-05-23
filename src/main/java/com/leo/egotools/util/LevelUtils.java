@@ -7,7 +7,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
@@ -19,11 +18,6 @@ import java.util.stream.Stream;
 public class LevelUtils {
     static final Supplier<Stream<Map.Entry<ResourceKey<Enchantment>, Enchantment>>> registryEnchant = () -> ForgeRegistries.ENCHANTMENTS.getEntries().stream();
 
-    static final List<Enchantment> BLACKLIST = List.of(
-        Enchantments.BINDING_CURSE,
-        Enchantments.VANISHING_CURSE,
-        Enchantments.SILK_TOUCH
-    );
 
     public static void increaseExp(ItemStack stack, int increase, RandomSource random){
         CompoundTag tag = stack.getTag().getCompound("properties");
@@ -47,7 +41,7 @@ public class LevelUtils {
         NbtParUtils.overrideIntValue(tag, "exp", 0);
         NbtParUtils.increaseIntValue(tag, "level", 1);
         int level = NbtParUtils.getIntValue(tag, "level");
-        NbtParUtils.overrideIntValue(tag, "maxExp", (int) (ServerConfig.getStartExp() * ServerConfig.getExpMultiplier() * (level + 1)));
+        NbtParUtils.overrideIntValue(tag, "maxExp", (int) (ServerConfig.getStartExp() * ServerConfig.getExpMultiplier() * level));
         addNewEnchant(stack, random);
     }
 
@@ -84,10 +78,11 @@ public class LevelUtils {
 
         registryEnchant.get().forEach(resourceKeyEnchantmentEntry -> {
             Enchantment enchantment = resourceKeyEnchantmentEntry.getValue();
+            String enchantID = ForgeRegistries.ENCHANTMENTS.getKey(enchantment).toString();
 
             if(enchantment.category.canEnchant(stack.getItem()) &&
                 EnchantmentHelper.isEnchantmentCompatible(appliedEnchantments, enchantment)
-                && !BLACKLIST.contains(enchantment)){
+                && (!ServerConfig.getEnchantBlackList().contains(enchantID) ^ ServerConfig.getEnchantWhiteList())){
                 compatibleEnchantments.add(enchantment);
             }
         });

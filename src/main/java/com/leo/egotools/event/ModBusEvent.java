@@ -24,12 +24,16 @@ public class ModBusEvent {
             int expPerTill = configData.getInt("Server Configs.expPerTill");
             double expMultiplier = configData.get("Server Configs.expMultiplier");
             double killExpMultiplier = configData.get("Server Configs.killExpMultiplier");
+            List<? extends String> enchantBlacklist = configData.get("Server Configs.enchantBlacklist");
+            boolean enchantWhitelist = configData.get("Server Configs.enchantWhitelist");
 
             ServerConfig.setStartExp(startExp);
             ServerConfig.setExpPerBlock(expPerBlock);
             ServerConfig.setExpPerTill(expPerTill);
             ServerConfig.setExpMultiplier(expMultiplier);
             ServerConfig.setKillExpMultiplier(killExpMultiplier);
+            ServerConfig.setEnchantBlacklist(enchantBlacklist);
+            ServerConfig.setEnchantWhitelist(enchantWhitelist);
         }
 
         if(configData.contains("Client Configs")){
@@ -55,12 +59,16 @@ public class ModBusEvent {
             int expPerTill = configData.getInt("Server Configs.expPerTill");
             double expMultiplier = configData.get("Server Configs.expMultiplier");
             double killExpMultiplier = configData.get("Server Configs.killExpMultiplier");
+            List<? extends String> enchantBlacklist = configData.get("Server Configs.enchantBlacklist");
+            boolean enchantWhitelist = configData.get("Server Configs.enchantWhitelist");
 
             ServerConfig.setStartExp(startExp);
             ServerConfig.setExpPerBlock(expPerBlock);
             ServerConfig.setExpPerTill(expPerTill);
             ServerConfig.setExpMultiplier(expMultiplier);
             ServerConfig.setKillExpMultiplier(killExpMultiplier);
+            ServerConfig.setEnchantBlacklist(enchantBlacklist);
+            ServerConfig.setEnchantWhitelist(enchantWhitelist);
         }
 
         if(configData.contains("Client Configs")){
