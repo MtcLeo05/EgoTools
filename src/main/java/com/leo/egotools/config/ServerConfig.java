@@ -2,6 +2,9 @@ package com.leo.egotools.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ServerConfig {
 
     public static final ForgeConfigSpec SERVER_SPEC;
@@ -11,6 +14,8 @@ public class ServerConfig {
     public static ForgeConfigSpec.IntValue EXP_PER_TILL;
     public static ForgeConfigSpec.DoubleValue EXP_MULTIPLIER;
     public static ForgeConfigSpec.DoubleValue KILL_EXP_MULTIPLIER;
+    public static ForgeConfigSpec.ConfigValue<List<? extends String>> ENCHANT_BLACKLIST;
+    public static ForgeConfigSpec.BooleanValue ENCHANT_WHITELIST;
 
     static {
         ForgeConfigSpec.Builder configBuilder = new ForgeConfigSpec.Builder();
@@ -43,6 +48,18 @@ public class ServerConfig {
             .comment("Exp gained each mob kill")
             .comment("Formula: killedMobMaxHealth * this")
             .defineInRange("killExpMultiplier", 1d, 1d, Double.MAX_VALUE);
+
+        ENCHANT_BLACKLIST = builder
+            .comment("Which enchantments should not be given when leveling up")
+            .defineList("enchantBlacklist", List.of(
+                "minecraft:silk_touch",
+                "minecraft:vanishing_curse",
+                "minecraft:binding_curse"
+            ), c -> true);
+
+        ENCHANT_WHITELIST = builder
+            .comment("Whether to consider the enchant blacklist as a whitelist")
+            .define("enchantWhitelist", false);
 
         builder.pop();
     }
@@ -81,6 +98,18 @@ public class ServerConfig {
         }
     }
 
+    public static void setEnchantBlacklist(List<? extends String> enchantBlacklist) {
+        if(isConfigLoaded()){
+            ENCHANT_BLACKLIST.set(enchantBlacklist);
+        }
+    }
+
+    public static void setEnchantWhitelist(boolean enchantWhitelist) {
+        if(isConfigLoaded()){
+            ENCHANT_WHITELIST.set(enchantWhitelist);
+        }
+    }
+
     public static int getExpPerBlock(){
         return isConfigLoaded() ? EXP_PER_BLOCK.get(): 1;
     }
@@ -97,7 +126,13 @@ public class ServerConfig {
         return isConfigLoaded() ? KILL_EXP_MULTIPLIER.get().floatValue(): 1f;
     }
 
+    public static List<? extends String> getEnchantBlackList(){
+        return  isConfigLoaded() ? ENCHANT_BLACKLIST.get(): new ArrayList<>();
+    }
 
+    public static boolean getEnchantWhiteList(){
+        return  isConfigLoaded() ? ENCHANT_WHITELIST.get(): false;
+    }
     static boolean isConfigLoaded(){
         return SERVER_SPEC.isLoaded();
     }

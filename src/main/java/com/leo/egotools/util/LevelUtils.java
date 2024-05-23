@@ -19,11 +19,6 @@ import java.util.stream.Stream;
 public class LevelUtils {
     static final Supplier<Stream<Map.Entry<ResourceKey<Enchantment>, Enchantment>>> registryEnchant = () -> ForgeRegistries.ENCHANTMENTS.getEntries().stream();
 
-    static final List<Enchantment> BLACKLIST = List.of(
-        Enchantments.BINDING_CURSE,
-        Enchantments.VANISHING_CURSE,
-        Enchantments.SILK_TOUCH
-    );
 
     public static void increaseExp(ItemStack stack, int increase, RandomSource random){
         CompoundTag tag = stack.getTag().getCompound("properties");
@@ -84,10 +79,11 @@ public class LevelUtils {
 
         registryEnchant.get().forEach(resourceKeyEnchantmentEntry -> {
             Enchantment enchantment = resourceKeyEnchantmentEntry.getValue();
+            String enchantID = ForgeRegistries.ENCHANTMENTS.getKey(enchantment).toString();
 
             if(enchantment.category.canEnchant(stack.getItem()) &&
                 EnchantmentHelper.isEnchantmentCompatible(appliedEnchantments, enchantment)
-                && !BLACKLIST.contains(enchantment)){
+                && (!ServerConfig.getEnchantBlackList().contains(enchantID) ^ ServerConfig.getEnchantWhiteList())){
                 compatibleEnchantments.add(enchantment);
             }
         });
