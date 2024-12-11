@@ -1,7 +1,7 @@
 package com.leo.egotools.event;
 
 import com.leo.egotools.EgoTools;
-import com.leo.egotools.client.hud.LevelHUDOverlay;
+import com.leo.egotools.client.gui.overlay.LevelHUDOverlay;
 import com.leo.egotools.client.tooltip.LevelTooltipComponent;
 import com.leo.egotools.client.tooltip.ClientLevelTooltipComponent;
 import net.minecraftforge.api.distmarker.Dist;

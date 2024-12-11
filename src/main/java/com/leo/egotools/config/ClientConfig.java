@@ -30,11 +30,11 @@ public class ClientConfig {
             .define("darkBackground", "0xFF555555");
 
          LIGHT_FILL = builder
-            .comment("The color to use as the light color when the bar is empty")
+            .comment("The color to use as the light color when the bar is full")
             .define("lightFill", "0xFF00FFFF");
 
          DARK_FILL = builder
-            .comment("The color to use as the light color when the bar is empty")
+            .comment("The color to use as the light color when the bar is full")
             .define("darkFill", "0xFF00AAAA");
 
         builder.pop();
@@ -54,31 +54,6 @@ public class ClientConfig {
 
     public static int getDarkFill() {
         return isConfigLoaded() ? EgoTools.stringToColor(DARK_FILL.get()): 0xFF00AAAA;
-    }
-
-    public static void setLightBackground(String lightBackground) {
-        if(isConfigLoaded()){
-            LIGHT_BACKGROUND.set(lightBackground);
-        }
-
-    }
-
-    public static void setDarkBackground(String darkBackground) {
-        if(isConfigLoaded()){
-            DARK_BACKGROUND.set(darkBackground);
-        }
-    }
-
-    public static void setLightFill(String lightFill) {
-        if(isConfigLoaded()){
-            LIGHT_FILL.set(lightFill);
-        }
-    }
-
-    public static void setDarkFill(String darkFill) {
-        if(isConfigLoaded()){
-            DARK_FILL.set(darkFill);
-        }
     }
 
     static boolean isConfigLoaded(){

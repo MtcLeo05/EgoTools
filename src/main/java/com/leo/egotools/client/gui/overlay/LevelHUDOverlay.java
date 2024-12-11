@@ -1,4 +1,4 @@
-package com.leo.egotools.client.hud;
+package com.leo.egotools.client.gui.overlay;
 
 import com.leo.egotools.config.ClientConfig;
 import com.mojang.blaze3d.systems.RenderSystem;

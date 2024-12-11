@@ -2,7 +2,7 @@ package com.leo.egotools.mixin;
 
 import com.leo.egotools.client.tooltip.LevelTooltipComponent;
 import com.leo.egotools.config.ServerConfig;
-import com.leo.egotools.util.NbtParUtils;
+import com.leo.egotools.util.CompoundTagUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
@@ -34,14 +34,13 @@ public abstract class TieredItemMixin extends Item {
     @Override
     public Optional<TooltipComponent> getTooltipImage(ItemStack pStack) {
         if(pStack.getTag() != null && pStack.getTag().contains(PROPERTIES_TAG)){
-
             CompoundTag prop = pStack.getTag().getCompound(PROPERTIES_TAG);
 
             return Optional.of(
                 new LevelTooltipComponent(
-                    NbtParUtils.getIntValue(prop, EXP_TAG),
-                    NbtParUtils.getIntValue(prop, MAX_EXP_TAG),
-                    NbtParUtils.getIntValue(prop, LEVEL_TAG)
+                    CompoundTagUtils.getIntValue(prop, EXP_TAG),
+                    CompoundTagUtils.getIntValue(prop, MAX_EXP_TAG),
+                    CompoundTagUtils.getIntValue(prop, LEVEL_TAG)
                 )
             );
         }
@@ -54,7 +53,6 @@ public abstract class TieredItemMixin extends Item {
             CompoundTag tag = pStack.getOrCreateTag();
 
             if(!tag.contains(PROPERTIES_TAG)){
-
                 CompoundTag prop = new CompoundTag();
 
                 prop.putInt(EXP_TAG, 0);

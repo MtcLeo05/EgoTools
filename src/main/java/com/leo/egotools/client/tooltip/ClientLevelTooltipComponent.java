@@ -28,9 +28,9 @@ public class ClientLevelTooltipComponent implements ClientTooltipComponent {
 
     @Override
     public void renderText(Font pFont, int pMouseX, int pMouseY, Matrix4f pMatrix, MultiBufferSource.BufferSource pBufferSource) {
-        String level = getBigNumber(component.getLevel());
-        String exp = getBigNumber(component.getExp());
-        String maxExp = getBigNumber(component.getMaxExp());
+        String level = getBigNumber(component.level());
+        String exp = getBigNumber(component.exp());
+        String maxExp = getBigNumber(component.maxExp());
 
         String expValue = exp + "/" + maxExp;
 
@@ -42,19 +42,18 @@ public class ClientLevelTooltipComponent implements ClientTooltipComponent {
     public void renderImage(Font pFont, int pX, int pY, GuiGraphics gui) {
         PoseStack ps = gui.pose();
         int totalWidth = 50;
-        float percentageFull = (float) component.getExp() / component.getMaxExp();
+        float percentageFull = (float) component.exp() / component.maxExp();
         int height = 3;
         int offsetFromBox = 4;
-
-        pY += 8;
+        int y = pY + 8;
 
         ps.pushPose();
 
         int progress = (int) Math.ceil(totalWidth * percentageFull);
 
-        gui.fill(pX - 1, pY - height - offsetFromBox - 1, pX + totalWidth + 1, pY - offsetFromBox, 0xFF000000);
-        gui.fill(pX, pY - height - offsetFromBox, pX + progress, pY - offsetFromBox, ClientConfig.getLightFill());
-        gui.fill(pX + progress, pY - height - offsetFromBox, pX + totalWidth, pY - offsetFromBox, ClientConfig.getDarkBackground());
+        gui.fill(pX - 1, y - height - offsetFromBox - 1, pX + totalWidth + 1, y - offsetFromBox, 0xFF000000);
+        gui.fill(pX, y - height - offsetFromBox, pX + progress, y - offsetFromBox - 1, ClientConfig.getLightFill());
+        gui.fill(pX + progress, y - height - offsetFromBox, pX + totalWidth, y - offsetFromBox - 1, ClientConfig.getDarkBackground());
         
         ps.popPose();
     }
