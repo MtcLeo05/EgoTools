@@ -1,4 +1,4 @@
-package com.leo.egotools.client.hud;
+package com.leo.egotools.client.gui.overlay;
 
 import com.leo.egotools.config.ClientConfig;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -23,7 +23,6 @@ public class LevelHUDOverlay {
         CompoundTag tag = handStack.getOrCreateTag();
 
         if(tag.contains("properties")){
-
             CompoundTag prop = tag.getCompound("properties");
 
             int level = prop.getInt("level");
@@ -48,8 +47,8 @@ public class LevelHUDOverlay {
         }
     });
 
-    public static void renderTwoColor(PoseStack guiGraphics, int startX, int startY, int maxX, int maxY, int lightColor, int darkColor){
-        GuiComponent.fill(guiGraphics, startX, startY, maxX, startY + 1, lightColor);
-        GuiComponent.fill(guiGraphics, startX, maxY - 1, maxX, maxY, darkColor);
+    public static void renderTwoColor(PoseStack poseStack, int startX, int startY, int maxX, int maxY, int lightColor, int darkColor){
+        GuiComponent.fill(poseStack, startX, startY, maxX, startY + 1, lightColor);
+        GuiComponent.fill(poseStack, startX, maxY - 1, maxX, maxY, darkColor);
     }
 }

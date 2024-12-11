@@ -1,9 +1,12 @@
 package com.leo.egotools.util;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
-public class NbtParUtils {
+public class CompoundTagUtils {
 
     public static int getIntValue(CompoundTag tag, String s){
         if(tag.contains(s)){
@@ -25,7 +28,9 @@ public class NbtParUtils {
         }
     }
 
-    public static void overrideIntValue(CompoundTag tag, String s, int value){
+    public static void overrideIntValue(@Nullable CompoundTag tag, String s, int value){
+        if(tag == null) tag = new CompoundTag();
+
         if(tag.contains(s)){
             tag.putInt(s, value);
         } else if (tag.contains("properties")) {
